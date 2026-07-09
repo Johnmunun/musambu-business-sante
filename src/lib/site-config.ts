@@ -1,10 +1,12 @@
 export const siteConfig = {
   name: "MUSAMBU BUSINESS SANTÉ",
   shortName: "Musambu Santé",
+  slogan: "Votre santé, notre priorité",
+  logo: "/logo-musambu.png",
   description:
     "Vente et distribution de produits de santé, bien-être, accessoires fitness et équipements pour la maison. Qualité, accompagnement personnalisé et livraison fiable en RDC.",
   url: "https://musambu-business-sante.com",
-  ogImage: "/og-image.jpg",
+  ogImage: "/logo-musambu.png",
   locale: "fr_FR",
   contacts: {
     phones: ["+243 81 675 2636", "+243 97 342 4261"],

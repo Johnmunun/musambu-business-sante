@@ -45,11 +45,17 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [{ url: siteConfig.ogImage, alt: siteConfig.name }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
+    images: [siteConfig.ogImage],
+  },
+  icons: {
+    icon: siteConfig.logo,
+    apple: siteConfig.logo,
   },
   robots: {
     index: true,

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Shield, Star, Truck } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 import { siteImages } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,8 +14,8 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden pt-20">
       <div className="absolute inset-0 bg-hero-gradient" />
-      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-accent/10 blur-3xl" />
-      <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-brand-primary/10 blur-3xl" />
+      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-blue/10 blur-3xl" />
+      <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-brand-red/10 blur-3xl" />
 
       <div className="container-custom relative flex min-h-[calc(100vh-5rem)] flex-col items-center gap-12 px-4 py-16 sm:px-6 lg:flex-row lg:gap-16 lg:px-8 lg:py-24">
         <motion.div
@@ -23,8 +24,8 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
-          <Badge variant="accent" className="mb-6">
-            Santé · Bien-être · Fitness
+          <Badge variant="accent" className="mb-6 border-brand-blue/20 bg-brand-blue/10 text-brand-blue">
+            {siteConfig.slogan}
           </Badge>
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
             Votre partenaire{" "}

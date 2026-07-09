@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import { Separator } from "@/components/ui/separator";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
 
@@ -12,17 +13,10 @@ export function Footer() {
       <div className="container-custom section-padding !pb-12 !pt-16">
         <div className="grid gap-12 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent">
-                <span className="text-sm font-bold text-white">M</span>
-              </div>
-              <div>
-                <span className="text-sm font-bold">MUSAMBU</span>
-                <span className="block text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
-                  Business Santé
-                </span>
-              </div>
-            </Link>
+            <BrandLogo variant="footer" />
+            <p className="mt-2 text-xs font-medium uppercase tracking-wide text-brand-blue">
+              {siteConfig.slogan}
+            </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {siteConfig.description}
             </p>

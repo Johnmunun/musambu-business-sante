@@ -25,7 +25,7 @@ export function AnimatedCTAButton({
     >
       {/* Glow pulsant */}
       <motion.span
-        className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-primary via-brand-accent to-brand-secondary opacity-60 blur-md"
+        className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-blue via-brand-blue-light to-brand-red opacity-60 blur-md"
         animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.7, 0.4] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
@@ -33,7 +33,7 @@ export function AnimatedCTAButton({
 
       <Link href={href} className="group relative block">
         <motion.span
-          className="relative flex items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-r from-brand-primary via-brand-accent to-brand-secondary px-8 py-3.5 text-base font-semibold text-white shadow-soft-lg"
+          className="relative flex items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-r from-brand-blue via-brand-blue-light to-brand-red px-8 py-3.5 text-base font-semibold text-white shadow-soft-lg"
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.97 }}
           animate={{ y: [0, -3, 0] }}

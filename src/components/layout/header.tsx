@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CartButton } from "@/components/marketplace/cart-drawer";
@@ -29,19 +30,7 @@ export function Header() {
       )}
     >
       <div className="container-custom flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 lg:h-20">
-        <Link href="/" className="group flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent shadow-soft">
-            <span className="text-sm font-bold text-white">M</span>
-          </div>
-          <div className="hidden sm:block">
-            <span className="text-sm font-bold tracking-tight text-foreground">
-              MUSAMBU
-            </span>
-            <span className="block text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
-              Business Santé
-            </span>
-          </div>
-        </Link>
+        <BrandLogo variant="header" />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
           {siteConfig.navLinks.map((link) => (

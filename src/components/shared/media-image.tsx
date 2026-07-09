@@ -80,7 +80,7 @@ export function MediaImage({
       {overlay && (
         <div
           className={cn(
-            "pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-primary/30 via-transparent to-transparent opacity-0 transition-opacity duration-500",
+            "pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-blue/30 via-transparent to-transparent opacity-0 transition-opacity duration-500",
             hoverEffect && "group-hover:opacity-100"
           )}
           aria-hidden="true"
