@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ShoppingBag } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/shared/brand-logo";
@@ -23,10 +23,10 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300",
+        "fixed top-0 z-50 w-full shadow-[0_4px_20px_-4px_rgba(29,78,216,0.15)] transition-all duration-300",
         scrolled
-          ? "border-b border-border/50 bg-background/80 shadow-soft backdrop-blur-xl"
-          : "bg-transparent"
+          ? "border-b border-border/50 bg-background/90 shadow-[0_8px_30px_-6px_rgba(29,78,216,0.22)] backdrop-blur-xl"
+          : "bg-background/80 backdrop-blur-sm"
       )}
     >
       <div className="container-custom flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 lg:h-20">
@@ -37,7 +37,12 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className={cn(
+                "rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+                "highlight" in link && link.highlight
+                  ? "bg-primary/10 font-semibold text-primary hover:bg-primary/15"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
             >
               {link.label}
             </Link>
@@ -47,10 +52,16 @@ export function Header() {
         <div className="flex items-center gap-2">
           <CartButton />
           <ThemeToggle />
-          <Button asChild size="sm" className="hidden sm:inline-flex">
+          <Button asChild size="sm" className="hidden gap-2 sm:inline-flex">
+            <Link href="/produits">
+              <ShoppingBag className="h-4 w-4" />
+              Boutique
+            </Link>
+          </Button>
+          <Button asChild size="sm" variant="outline" className="hidden md:inline-flex">
             <Link href="/contact">
               <Phone className="h-4 w-4" />
-              Nous contacter
+              Contact
             </Link>
           </Button>
           <Button
@@ -74,14 +85,20 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+                className={cn(
+                  "rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                  "highlight" in link && link.highlight
+                    ? "bg-primary/10 font-semibold text-primary"
+                    : "text-foreground hover:bg-muted"
+                )}
               >
                 {link.label}
               </Link>
             ))}
-            <Button asChild className="mt-2">
-              <Link href="/contact" onClick={() => setIsOpen(false)}>
-                Nous contacter
+            <Button asChild className="mt-2 gap-2">
+              <Link href="/produits" onClick={() => setIsOpen(false)}>
+                <ShoppingBag className="h-4 w-4" />
+                Accéder à la boutique
               </Link>
             </Button>
           </nav>

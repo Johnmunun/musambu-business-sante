@@ -11,15 +11,14 @@ import {
   Plus,
 } from "lucide-react";
 import { useCart } from "@/context/cart-context";
+import type { CartItem } from "@/context/cart-context";
 import { siteConfig } from "@/lib/site-config";
 import { Button } from "@/components/ui/button";
-
-import type { CartItem } from "@/context/cart-context";
+import { Separator } from "@/components/ui/separator";
 
 function buildWhatsAppOrderMessage(items: CartItem[], totalFormatted: string) {
   const lines = items.map(
-    (i) =>
-      `• ${i.product.name} x${i.quantity} — ${i.product.price}`
+    (i) => `• ${i.product.name} x${i.quantity} — ${i.product.price}`
   );
   return `Bonjour Musambu Business Santé,\n\nJe souhaite passer commande :\n\n${lines.join("\n")}\n\n*Total : ${totalFormatted}*\n\nMerci !`;
 }
@@ -54,15 +53,17 @@ export function CartDrawer() {
           />
 
           <motion.aside
-            className="fixed bottom-0 right-0 top-0 z-[70] flex w-full max-w-md flex-col border-l bg-background shadow-soft-2xl sm:bottom-auto"
+            className="fixed inset-y-0 right-0 z-[70] flex h-dvh w-full max-w-md flex-col border-l bg-background shadow-soft-2xl"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 280 }}
             role="dialog"
             aria-label="Panier d'achat"
+            aria-modal="true"
           >
-            <div className="flex items-center justify-between border-b px-6 py-4">
+            {/* En-tête fixe */}
+            <div className="flex shrink-0 items-center justify-between border-b px-5 py-4">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="h-5 w-5 text-primary" />
                 <h2 className="text-lg font-semibold">Mon panier</h2>
@@ -72,90 +73,100 @@ export function CartDrawer() {
                   </span>
                 )}
               </div>
-              <Button variant="ghost" size="icon" onClick={closeCart} aria-label="Fermer le panier">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={closeCart}
+                aria-label="Fermer le panier"
+              >
                 <X className="h-5 w-5" />
               </Button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 py-4">
+            {/* Liste scrollable — hauteur fixe */}
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4">
               {items.length === 0 ? (
-                <div className="flex h-full flex-col items-center justify-center gap-3 py-16 text-center">
-                  <ShoppingBag className="h-12 w-12 text-muted-foreground/40" />
+                <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+                    <ShoppingBag className="h-8 w-8 text-muted-foreground/50" />
+                  </div>
                   <p className="font-medium">Votre panier est vide</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="max-w-xs text-sm text-muted-foreground">
                     Parcourez notre boutique et ajoutez vos produits favoris.
                   </p>
-                  <Button variant="outline" onClick={closeCart}>
+                  <Button variant="outline" onClick={closeCart} className="mt-2">
                     Continuer mes achats
                   </Button>
                 </div>
               ) : (
-                <ul className="space-y-4">
+                <ul className="space-y-3">
                   {items.map((item) => (
                     <li
                       key={item.product.slug}
-                      className="flex gap-4 rounded-xl border p-3 shadow-soft"
+                      className="flex gap-3 rounded-xl border bg-card p-3 shadow-soft"
                     >
-                      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
+                      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg">
                         <Image
                           src={item.product.image}
                           alt={item.product.name}
                           fill
                           className="object-cover"
-                          sizes="64px"
+                          sizes="56px"
                         />
                       </div>
-                      <div className="flex flex-1 flex-col">
-                        <p className="text-sm font-medium leading-snug">
-                          {item.product.name}
-                        </p>
-                        <p className="text-sm font-semibold text-primary">
-                          {item.product.price}
-                        </p>
-                        <div className="mt-2 flex items-center justify-between">
-                          <div className="flex items-center gap-1 rounded-lg border">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="h-7 w-7"
-                              onClick={() =>
-                                item.quantity <= 1
-                                  ? removeItem(item.product.slug)
-                                  : updateQuantity(
-                                      item.product.slug,
-                                      item.quantity - 1
-                                    )
-                              }
-                              aria-label="Diminuer"
-                            >
-                              <Minus className="h-3 w-3" />
-                            </Button>
-                            <span className="w-6 text-center text-sm font-medium">
-                              {item.quantity}
-                            </span>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="h-7 w-7"
-                              onClick={() =>
-                                updateQuantity(
-                                  item.product.slug,
-                                  item.quantity + 1
-                                )
-                              }
-                              aria-label="Augmenter"
-                            >
-                              <Plus className="h-3 w-3" />
-                            </Button>
+                      <div className="flex min-w-0 flex-1 flex-col justify-between">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-medium">
+                              {item.product.name}
+                            </p>
+                            <p className="text-sm font-semibold text-primary">
+                              {item.product.price}
+                            </p>
                           </div>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-7 w-7 text-destructive"
+                            className="h-7 w-7 shrink-0 text-muted-foreground hover:text-destructive"
                             onClick={() => removeItem(item.product.slug)}
                             aria-label="Supprimer"
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </Button>
+                        </div>
+                        <div className="mt-2 flex w-fit items-center rounded-lg border">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7"
+                            onClick={() =>
+                              item.quantity <= 1
+                                ? removeItem(item.product.slug)
+                                : updateQuantity(
+                                    item.product.slug,
+                                    item.quantity - 1
+                                  )
+                            }
+                            aria-label="Diminuer"
+                          >
+                            <Minus className="h-3 w-3" />
+                          </Button>
+                          <span className="w-8 text-center text-sm font-medium">
+                            {item.quantity}
+                          </span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7"
+                            onClick={() =>
+                              updateQuantity(
+                                item.product.slug,
+                                item.quantity + 1
+                              )
+                            }
+                            aria-label="Augmenter"
+                          >
+                            <Plus className="h-3 w-3" />
                           </Button>
                         </div>
                       </div>
@@ -165,14 +176,22 @@ export function CartDrawer() {
               )}
             </div>
 
+            {/* Pied de page fixe */}
             {items.length > 0 && (
-              <div className="border-t px-6 py-5">
+              <div className="shrink-0 border-t bg-background px-5 py-4">
+                <div className="mb-3 flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    {itemCount} article{itemCount > 1 ? "s" : ""}
+                  </span>
+                  <span className="text-muted-foreground">Sous-total</span>
+                </div>
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="text-muted-foreground">Total</span>
+                  <span className="font-medium">Total</span>
                   <span className="text-xl font-bold text-primary">
                     {totalFormatted}
                   </span>
                 </div>
+                <Separator className="mb-4" />
                 <Button asChild size="lg" className="w-full gap-2">
                   <a
                     href={whatsappCheckout}

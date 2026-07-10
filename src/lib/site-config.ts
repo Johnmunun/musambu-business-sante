@@ -57,8 +57,8 @@ export const siteConfig = {
   ],
   navLinks: [
     { href: "/", label: "Accueil" },
+    { href: "/produits", label: "Boutique", highlight: true },
     { href: "/#services", label: "Services" },
-    { href: "/#marketplace", label: "Boutique" },
     { href: "/#temoignages", label: "Témoignages" },
     { href: "/#faq", label: "FAQ" },
     { href: "/blog", label: "Blog" },

@@ -39,8 +39,8 @@ export function HeroSection() {
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
-            <AnimatedCTAButton href="/#marketplace">
-              Découvrir nos produits
+            <AnimatedCTAButton href="/produits">
+              Découvrir la boutique
             </AnimatedCTAButton>
             <Button asChild variant="outline" size="lg">
               <Link href="/contact">Demander un conseil</Link>
